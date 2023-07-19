@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hogwarts/screens/home_page.dart';
+import 'package:hogwarts/screens/character_detail.dart';
 
 import '../models/character.dart';
 
@@ -42,7 +42,7 @@ class CharacterList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Hogwarts")),
+      appBar: AppBar(title: const Text("Hogwarts")),
       body: Column(
         children: [
           for (var character in characters)
@@ -52,10 +52,13 @@ class CharacterList extends StatelessWidget {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return CharacterDetail();
+                      return CharacterDetail(
+                        character: character,
+                      );
                     }));
                   },
-                  leading: Image.network(character.url),
+                  leading: Hero(
+                      tag: character.url, child: Image.network(character.url)),
                   title: Text(character.name)),
             )
         ],
